@@ -1,0 +1,39 @@
+# Sayac-84160 — Urun Gereksinimleri Dokumani (PRD)
+
+## 1. Genel Bakis
+Sayac-84160, kullanicilarin sayisal degerleri artirma, azaltma ve sifirlama islemlerini gerceklestirebilecekleri basit ve modern bir web sayaci uygulamasidir. Uygulama tarayicida localStorage ile veri kaliciligi saglar. Turkce arayuz ile yerel kullanicilara dogal ve akici bir deneyim sunar.
+
+## 2. Hedefler
+- **Artirim/Azaltim/Sifirla**: Kullanici sayiyi kolayca artirabilir, azaltabilir ve sifirlayabilir.
+- **Veri Kaliciligi**: localStorage ile sayac degeri tarayicida saklanir.
+- **WCAG 2.1 AA Erisilebilirlik**: Klavye navigasyonu, ekran okuyucu destegi, yeterli kontrast orani.
+- **Mobil Uyumluluk**: 320px'ten 1920px'e kadar tum ekran boyutlarinda duzgun calisir.
+
+## 3. Tech Stack
+React 18, Vite, TypeScript, Tailwind CSS, Lucide React, Inter (body), Space Grotesk (headings).
+
+## 4. Fonksiyonel Gereksinimler
+- **Artir butonu**: "Arttir".
+- **Azalt butonu**: "Azalt".
+- **Sifirla butonu**: "Sifirla".
+- **Gosterim**: Sayac degeri buyuk font ile ekranda gosterilir.
+- **Storage key**: sayac-84160-state
+
+## 6. UI/UX Gereksinimleri
+**Aesthetic: Minimal**
+- Background: #1a1a2e
+- Surface: #16213e
+- Primary: #e94560
+- Secondary: #0f9b6e
+- Text: #ffffff
+- Text Muted: #a0a0a0
+
+**Tipografi:**
+- Sayac Degeri: Space Grotesk, 96px, 700
+- Baslik: Space Grotesk, 24px, 600
+- Buton Metni: Inter, 18px, 500
+
+**Ekranlar:**
+1. Ana Sayac Ekrani
+2. Mobil Uyumlu Duzen
+3. Bos Durum (0 degeri)

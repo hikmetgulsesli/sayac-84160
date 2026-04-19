@@ -1,0 +1,156 @@
+# Sayac-84160 — Urun Gereksinimleri Dokumani (PRD)
+
+## 1. Genel Bakis
+
+Sayac-84160, kullanicilarin sayisal degerleri artirma, azaltma ve sifirlama islemlerini gerceklestirebilecekleri basit ve modern bir web sayaci uygulamasidir. Uygulama tarayicida localStorage ile veri kaliciligi saglar. Turkce arayuz ile yerel kullanicilara dogal ve akici bir deneyim sunar.
+
+Hedef kitle: Gunluk kullanicilar, ogrenciler, isletme sahipleri (stok sayimi, ziyaretci sayaci, egzersiz takibi gibi basit ihtiyaclar icin).
+
+## 2. Hedefler
+
+- **Artirim/Azaltim/Sifirla**: Kullanici sayiyi kolayca artirabilir, azaltabilir ve sifirlayabilir.
+- **Veri Kaliciligi**: localStorage ile sayac degeri tarayicida saklanir, sayfa yenilense bile korunur.
+- **WCAG 2.1 AA Erisilebilirlik**: Klavye navigasyonu, ekran okuyucu destegi, yeterli kontrast orani.
+- **Mobil Uyumluluk**: 320px'ten 1920px'e kadar tum ekran boyutlarinda duzgun calisir.
+- **Hizli Yukleme**: Ilk yukleme 2 saniyeden kisa, etkilesim 100ms icinde yanit verir.
+- **Minimal Tasarim**: Sade ve temiz gorunum, kullanim kolayligi.
+
+## 3. Tech Stack Detayi
+
+| Katman | Teknoloji |
+|--------|-----------|
+| Framework | React 18 |
+| Build Tool | Vite 5.x |
+| Language | TypeScript |
+| Styling | Tailwind CSS 3.x |
+| State Management | React useState |
+| Storage | localStorage API |
+| Icons | Lucide React |
+| Fonts | Inter (body), Space Grotesk (headings) |
+
+## 4. Fonksiyonel Gereksinimler
+
+### 4.1 Sayac Degeri Kontrolu
+- **Artir butonu**: Mevcut degeri 1 artirir. Buton etiketi: "Arttir".
+- **Azalt butonu**: Mevcut degeri 1 azaltir. Negatif degerlere izin verilir. Buton etiketi: "Azalt".
+- **Sifirla butonu**: Sayac degerini 0'a getirir. Buton etiketi: "Sifirla".
+- **Gosterim**: Sayac degeri buyuk font ile ekranda gosterilir. Format: tam sayi, negatif onunde eksi isareti.
+
+### 4.2 Veri Kaliciligi
+- Sayac degeri her degisiklikte localStorage'a kaydedilir.
+- Sayfa yenilendiginde son deger geri yuklenir.
+- Storage key: sayac-84160-state
+
+### 4.3 Erisilebilirlik (WCAG 2.1 AA)
+- Tum butonlar klavye ile erisilebilir (Tab, Enter, Space).
+- ARIA etiketleri: aria-label ile buton aciklamalari.
+- Focus state: 2px solid primary renk outline.
+- Kontrast: Normal metin icin 4.5:1.
+- Touch hedefleri: Minimum 44x44px.
+- aria-live="polite" ile sayac degeri degisikligi duyurulur.
+
+## 5. Veri Modeli
+
+typescript
+interface CounterState {
+  value: number;
+}
+
+Key: sayac-84160-state
+
+## 6. UI/UX Gereksinimleri
+
+### Design System — Aesthetic: Minimal
+
+**Renk Paleti:**
+| Element | Hex |
+|---------|-----|
+| Background | #1a1a2e |
+| Surface | #16213e |
+| Primary | #e94560 |
+| Secondary | #0f9b6e |
+| Text | #ffffff |
+| Text Muted | #a0a0a0 |
+| Border | #2d2d44 |
+| Error | #e74c3c |
+| Success | #0f9b6e |
+
+**Tipografi:**
+| Element | Font | Boyut | Agirlik |
+|---------|------|-------|---------|
+| Sayac Degeri | Space Grotesk | 96px | 700 |
+| Baslik | Space Grotesk | 24px | 600 |
+| Buton Metni | Inter | 18px | 500 |
+| Body | Inter | 16px | 400 |
+
+**Icon Library:** Lucide React
+**Border Radius:** 8px (kucuk), 12px (orta)
+
+### Bilesen Tanimlari
+
+**CounterDisplay:** 96px font, 700 agirlik, Space Grotesk. Animasyonlu sayi degisimi (scale + fade, 200ms). aria-live="polite".
+
+**CounterControls:** 3 buton yanyana (Artir, Sifirla, Azalt). 64x64px minimum touch hedefi. Butonlar sirasi: Azalt - Sifirla - Arttir.
+
+## 7. Non-Functional Requirements
+
+### 7.1 Performans
+- Ilk yukleme: < 1.5 saniye
+- Buton yaniti: < 50ms
+- Bundle boyutu: < 100KB (gzip)
+
+### 7.2 Erisilebilirlik (WCAG 2.1 AA)
+- Klavye navigasyonu, screen reader uyumlu, kontrast orani >= 4.5:1
+
+### 7.3 Tarayici Destegi
+- Chrome 90+, Firefox 88+, Safari 14+, Edge 90+, iOS Safari 14+, Android Chrome 90+
+
+## 8. Proje Yapisi
+
+sayac-84160/
+├── src/
+│   ├── components/
+│   │   ├── CounterDisplay.tsx
+│   │   └── CounterControls.tsx
+│   ├── types/
+│   │   └── index.ts
+│   ├── utils/
+│   │   └── storage.ts
+│   ├── App.tsx
+│   ├── main.tsx
+│   └── index.css
+├── index.html
+├── package.json
+├── vite.config.ts
+├── tailwind.config.js
+├── tsconfig.json
+└── README.md
+
+## 9. Window State
+
+typescript
+window.app = {
+  state: 'idle',
+  counter: {
+    value: number
+  }
+}
+
+## 10. Ekranlar (Screens)
+
+| # | Ekran Adi | Tur | Aciklama |
+|---|-----------|-----|----------|
+| 1 | Ana Sayac Ekrani | main | Merkezi sayac degeri, artir/azalt/sifirla butonlari |
+| 2 | Mobil Uyumlu Duzen | responsive | 320px-480px mobil gorunum, dikey buton duzeni |
+| 3 | Bos Durum | empty-state | Ilk acilisda 0 degeri gosterimi |
+
+Generate a SEPARATE screen design for EVERY page, view, modal, dialog, tab panel, and settings screen described in this PRD. Do NOT skip ANY screen — even if it seems minor.
+
+MANDATORY SCREENS:
+- If the PRD mentions "settings" or "ayarlar" → generate a Settings screen
+- If the PRD mentions tabs or bottom navigation → generate EACH tab view as a separate screen
+- If the PRD mentions modals (statistics, help, share, confirmation) → generate each as a separate screen
+- If the PRD mentions error states, empty states, loading states → generate those too
+- Generate at least as many screens as there are distinct views/pages/modals in the PRD
+
+All visible text must be in Turkish. Use a dark, modern theme.
